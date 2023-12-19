@@ -1,10 +1,12 @@
 import './App.css';
 import { Router } from './routes/Router';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
         <Router />
+        <Outlet />
     </div>
   );
 }
