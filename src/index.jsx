@@ -6,10 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 import { CookiesProvider } from "react-cookie";
 import { Provider } from "react-redux";
 import { store } from "./store"
-console.log('test2');
+
 const container = document.getElementById('root');
-console.log('container', container);
 const root = createRoot(container);
+
 root.render(
   <Provider store={store}>
     <CookiesProvider>

@@ -7,22 +7,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./editTask.css"
 
 export const EditTask = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const { listId, taskId } = useParams();
   const [cookies] = useCookies();
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [isDone, setIsDone] = useState();
+  const [limitDate, setLimitDate] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === "done");
+  const handleDateChange = (e) => setLimitDate(e.target.value);
   const onUpdateTask = () => {
     console.log(isDone)
     const data = {
       title: title,
       detail: detail,
-      done: isDone
+      done: isDone,
+      limit: limitDate
     }
 
     axios.put(`${url}/lists/${listId}/tasks/${taskId}`, data, {
@@ -32,7 +35,7 @@ export const EditTask = () => {
     })
     .then((res) => {
       console.log(res.data)
-      history.push("/");
+      navigate("/");
     })
     .catch((err) => {
       setErrorMessage(`更新に失敗しました。${err}`);
@@ -46,7 +49,7 @@ export const EditTask = () => {
       }
     })
     .then(() => {
-      history.push("/");
+      navigate("/");
     })
     .catch((err) => {
       setErrorMessage(`削除に失敗しました。${err}`);
@@ -64,6 +67,7 @@ export const EditTask = () => {
       setTitle(task.title)
       setDetail(task.detail)
       setIsDone(task.done)
+      setLimitDate(task.limit)
     })
     .catch((err) => {
       setErrorMessage(`タスク情報の取得に失敗しました。${err}`);
@@ -81,6 +85,8 @@ export const EditTask = () => {
           <input type="text" onChange={handleTitleChange} className="edit-task-title" value={title} /><br />
           <label>詳細</label><br />
           <textarea type="text" onChange={handleDetailChange} className="edit-task-detail" value={detail} /><br />
+          <label>期限</label><br />
+          <input type="date" onChange={handleDateChange} className="edit-task-date" value={limitDate} /><br />
           <div>
             <input type="radio" id="todo" name="status" value="todo" onChange={handleIsDoneChange} checked={isDone === false ? "checked" : ""} />未完了
             <input type="radio" id="done" name="status" value="done" onChange={handleIsDoneChange} checked={isDone === true ? "checked" : ""} />完了

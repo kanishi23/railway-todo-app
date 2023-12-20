@@ -9,7 +9,7 @@ import { url } from "../const";
 import "./signUp.css";
 
 export const SignUp = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const auth = useSelector((state) => state.auth.isSignIn);
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -29,10 +29,12 @@ export const SignUp = () => {
 
     axios.post(`${url}/users`, data)
       .then((res) => {
+        console.log('res',res);
         const token = res.data.token;
+        console.log('token', token);
         dispatch(signIn());
         setCookie("token", token);
-        history.push("/");
+        navigate("/");
       })
       .catch((err) => {
         setErrorMessge(`サインアップに失敗しました。 ${err}`);

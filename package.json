@@ -9,25 +9,25 @@
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
     "axios": "^1.6.2",
-    "dotenv": "^16.3.1",
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.0",
+    "sass": "^1.69.5",
     "web-vitals": "^3.5.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
-    "dotenv-cli": "^7.3.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "prettier": "^3.1.1",
     "react-scripts": "5.0.1",
-    "vite": "^5.0.10"
+    "vite": "^5.0.10",
+    "vite-plugin-env-compatible": "^2.0.1"
   },
   "scripts": {
-    "dev": "dotenv -e .env.sample vite",
+    "dev": "vite --mode sample",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
