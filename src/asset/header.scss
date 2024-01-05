@@ -7,6 +7,10 @@
   color: #ffffff;
   display: flex;
   justify-content: space-between;
+  a {
+    color: white;
+    text-decoration: none;
+  }
 }
 
 .sign-out-button {

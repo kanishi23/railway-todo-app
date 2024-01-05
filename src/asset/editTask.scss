@@ -1,22 +1,28 @@
 @charset "utf-8";
 
+@import "variables";
+
 .edit-task {
-  width: 1000px;
+  width: 100%;
   margin: 0 auto;
+  max-width: 1000px;
 }
 
 .edit-task-form {
   color: #555555;
+  margin-left: 20px;
 }
 
-.edit-task-title, .edit-task-detail {
-  width: 300px;
+.edit-task-title, .edit-task-detail, .edit-task-date {
+  width: 90%;
   margin-bottom: 25px;
+  margin-left: 20px;
+  max-width: 300px;
 }
 
 .delete-task-button {
-  color: #ff3333;
-  border: solid 1px #ff3333;
+  color: $main-color;
+  border: solid 1px $main-color;
   width: 80px;
   height: 40px;
   margin: 25px 5px;
@@ -32,5 +38,5 @@
 }
 
 .error-message {
-  color: #ff3333;
+  color: $main-color;
 }

@@ -1,17 +1,24 @@
 @charset "utf-8";
 
+@import "variables";
+
 .new-list {
-  width: 1000px;
+  width: 100%;
   margin: 0 auto;
+  max-width: 1000px;
 }
 
 .new-list-form {
+  max-width: 90%;
   color: #555555;
+  margin-left: 20px;
 }
 
 .new-list-title {
-  width: 300px;
+  width: 90%;
   margin-bottom: 25px;
+  margin-left: 20px;
+  max-width: 300px;
 }
 
 .new-list-button {

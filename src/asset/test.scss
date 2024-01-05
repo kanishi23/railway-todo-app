@@ -1,0 +1,17 @@
+[aria-hidden="true"] {
+  display: none;
+}
+
+[aria-hidden="false"] {
+  display: block;
+}
+
+[aria-selected="true"] {
+  background-color: royalblue;
+  color: white;
+}
+
+button:focus{
+  outline: solid blue 2px;
+  border-radius: 0.1rem
+}

@@ -1,26 +1,25 @@
 @charset "utf-8";
 
-.signin {
-  width: 500px;
+@import "variables";
+
+.signup {
+  width: 100%;
   margin: 0 auto;
+  max-width: 500px;
 }
-
-.signin-form {
+.signup-form {
   margin: 25px 0;
-}
-
-.email-label, .password-label {
   color: #555555;
 }
 
-.email-input, .password-input {
+.email-input, .name-input, .password-input {
   width: 100%;
   font-size: large;
   height: 30px;
   margin-bottom: 25px;
 }
 
-.signin-button {
+.signup-button {
   background-color: #242F9B;
   color: #ffffff;
   width: 100px;
@@ -29,5 +28,5 @@
 }
 
 .error-message {
-  color: #ff3333;
+  color: $main-color;
 }

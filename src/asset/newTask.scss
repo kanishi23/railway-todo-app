@@ -1,17 +1,23 @@
 @charset "utf-8";
 
+@import "variables";
+
 .new-task {
-  width: 1000px;
+  width: 100%;
   margin: 0 auto;
+  max-width: 1000px;
 }
 
 .new-task-form {
   color: #555555;
+  margin-left: 20px;
 }
 
-.new-task-select-list, .new-task-title, .new-task-detail {
-  width: 300px;
+.new-task-select-list, .new-task-title, .new-task-detail, .new-task-limit {
+  width: 90%;
   margin-bottom: 25px;
+  margin-left: 20px;
+  max-width: 300px;
 }
 
 .new-task-detail {
@@ -27,5 +33,5 @@
 }
 
 .error-message {
-  color: #ff3333;
+  color: $main-color;
 }

@@ -1,12 +1,22 @@
+@charset "utf-8";
+
+@import "variables";
+
 .taskList {
   margin: 50px auto;
   list-style: none;
-  width: 1000px;
+  width: 100%;
+  max-width: 1000px;
+  .task-item-alignRight {
+    text-align: right;
+  }
 }
 
 .list-header {
   display: flex;
   justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .list-menu {
@@ -17,6 +27,8 @@
   list-style: none;
   display: flex;
   overflow-x: auto;
+  margin-left: 40px;
+  margin-right: 20px;
 }
 
 .list-tab-item {
@@ -37,6 +49,12 @@
 
 .tasks {
   margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.tasks ul {
+  margin-left: 20px;
 }
 
 .tasks-header {
@@ -63,7 +81,7 @@
 }
 
 .error-message {
-  color: #ff3333;
+  color: $main-color;
 }
 
 .display-select-wrapper {
@@ -73,4 +91,38 @@
 
 .display-select {
   width: 100%;
+}
+
+br {
+  &.br768 {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .list-header {
+    flex-direction: column;
+    justify-content: flex-start;
+
+  }
+  .list-tab {
+    flex-direction: column;
+  }
+  .tasks-header {
+    flex-direction: column;
+    a {
+      text-align: right;
+    }
+  }
+  .task-item {
+    height: fit-content;
+  }
+  br {
+    &.br768 {
+      display: block;
+    }
+  }
+}
+@media screen and (max-width: 320px) {
 }
