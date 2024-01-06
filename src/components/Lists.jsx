@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { url } from '../utils/const';
 import { useCookies } from 'react-cookie';
 
 export default function Lists(props) {
-  const { lists, selectListId, setSelectListId, setTasks } = props;
+  const { lists, selectListId, setSelectListId, setTasks, setErrorMessage } = props;
   const [cookies] = useCookies();
 
   const chnageFocus1 = () => {
@@ -16,27 +16,29 @@ export default function Lists(props) {
     document.getElementById('tab-2').focus();
   };
 
-  const handleSelectList = (id) => {
-    console.log('setSelectListId', id);
-    setSelectListId(id);
-    axios
-      .get(`${url}/lists/${id}/tasks`, {
-        headers: {
-          authorization: `Bearer ${cookies.token}`,
-        },
-      })
-      .then((res) => {
-        const oldIndex = lists.findIndex((ele) => ele.id === selectListId);
-        const index = lists.findIndex((ele) => ele.id === id);
-        console.log('oldIndex', oldIndex, 'index', index);
-        // const selectedLitNum = lists.findIndex(e => e.id ===id)+1;
-        document.getElementById('tab-' + (oldIndex + 2)).setAttribute('aria-selected', 'false');
-        document.getElementById('tab-' + (index + 2)).setAttribute('aria-selected', 'true');
-        setTasks(res.data.tasks);
-      })
-      .catch((err) => {
-        setErrorMessage(`タスクの取得に失敗しました。${err}`);
-      });
+  const handleSelectList = (e, id, enterClick = false) => {
+    if ((e.keyCode === 13) | enterClick) {
+      console.log('setSelectListId', id);
+      setSelectListId(id);
+      axios
+        .get(`${url}/lists/${id}/tasks`, {
+          headers: {
+            authorization: `Bearer ${cookies.token}`,
+          },
+        })
+        .then((res) => {
+          const oldIndex = lists.findIndex((ele) => ele.id === selectListId);
+          const index = lists.findIndex((ele) => ele.id === id);
+          console.log('oldIndex', oldIndex, 'index', index);
+          // const selectedLitNum = lists.findIndex(e => e.id ===id)+1;
+          document.getElementById('tab-' + (oldIndex + 2)).setAttribute('aria-selected', 'false');
+          document.getElementById('tab-' + (index + 2)).setAttribute('aria-selected', 'true');
+          setTasks(res.data.tasks);
+        })
+        .catch((err) => {
+          setErrorMessage(`タスクの取得に失敗しました。${err}`);
+        });
+    }
   };
 
   return (
@@ -58,24 +60,23 @@ export default function Lists(props) {
           {lists.map((list, index) => {
             const isActive = list.id === selectListId;
             return (
-              <li>
+              <li key={list.id}>
                 <button
-                  key={list.id}
                   id={'tab-' + (index + 2)}
                   className={`list-tab-item ${isActive ? 'active' : ''}`}
-                  onClick={() => handleSelectList(list.id)}
+                  onKeyDown={(e) => handleSelectList(e, list.id)}
+                  onClick={(e) => handleSelectList(e, list.id, true)}
                   tabIndex={index + 2}
                   role="tab"
-                  aria-selected={index === 0}
+                  aria-selected={index === selectListId}
                   aria-controls={'panel-' + (index + 2)}
-                  autoFocus={list.id === selectListId}
                 >
                   {list.title}
                 </button>
               </li>
             );
           })}
-          <span tabIndex={lists.length + 2} onFocus={chnageFocus2}></span>
+          <span tabIndex={lists.length + 2} onFocus={chnageFocus2} autoFocus></span>
         </ul>
       </div>
     </>

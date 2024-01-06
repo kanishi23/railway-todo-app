@@ -29,7 +29,7 @@ export const NewTask = () => {
       done: false,
       limit: limitDate,
     };
-
+    console.log('limitDate', limitDate);
     axios
       .post(`${url}/lists/${selectListId}/tasks`, data, {
         headers: {

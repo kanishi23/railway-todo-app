@@ -5,7 +5,7 @@ import { useCookies } from 'react-cookie';
 import { url } from '../utils/const';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../asset/editTask.scss';
-import timeFormat from '../utils/timeFormat';
+import timeFormat, { timeJSTFormat } from '../utils/timeFormat';
 
 export const EditTask = () => {
   const navigate = useNavigate();
@@ -19,18 +19,18 @@ export const EditTask = () => {
   const handleTitleChange = (e) => setTitle(e.target.value);
   const handleDetailChange = (e) => setDetail(e.target.value);
   const handleIsDoneChange = (e) => setIsDone(e.target.value === 'done');
-  const handleDateChange = (e) => {
-    setLimitDate(timeFormat(e.target.value));
+  const handleLimitChange = (e) => {
+    console.log('e.target.value', e.target.value);
+    setLimitDate(timeFormat(e.target.value, false));
   };
   const onUpdateTask = () => {
-    console.log('limitDate', limitDate);
-    console.log('limitDate', typeof limitDate);
     const data = {
       title: title,
       detail: detail,
       done: isDone,
-      limit: limitDate,
+      limit: timeJSTFormat(limitDate),
     };
+    console.log('data', data);
 
     axios
       .put(`${url}/lists/${listId}/tasks/${taskId}`, data, {
@@ -39,7 +39,7 @@ export const EditTask = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        console.log('res.data', res.data);
         navigate('/');
       })
       .catch((err) => {
@@ -94,7 +94,7 @@ export const EditTask = () => {
             type="text"
             onChange={handleTitleChange}
             className="edit-task-title"
-            value={title}
+            defaultValue={title}
           />
           <br />
           <label>詳細</label>
@@ -103,14 +103,14 @@ export const EditTask = () => {
             type="text"
             onChange={handleDetailChange}
             className="edit-task-detail"
-            value={detail}
+            defaultValue={detail}
           />
           <br />
           <label>期限</label>
           <br />
           <input
             type="datetime-local"
-            onChange={handleDateChange}
+            onChange={handleLimitChange}
             className="edit-task-date"
             value={timeFormat(limitDate, false)}
           />
@@ -129,7 +129,7 @@ export const EditTask = () => {
               type="radio"
               id="done"
               name="status"
-              value="done"
+              defaultValue="done"
               onChange={handleIsDoneChange}
               checked={isDone === true ? 'checked' : ''}
             />

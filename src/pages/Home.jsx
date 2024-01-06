@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import axios from 'axios';
@@ -16,19 +16,6 @@ export const Home = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [cookies] = useCookies();
   const handleIsDoneDisplayChange = (e) => setIsDoneDisplay(e.target.value);
-
-  const escFunction = useCallback((event) => {
-    if ((event.keyCode === 39) | (!event.shiftKey && event.keyCode === 9)) {
-      // キーコードを判定して何かする。
-      console.log('→ Key is pressed!');
-    } else if ((event.keyCode === 37) | (event.shiftKey && event.keyCode === 9)) {
-      console.log('← Key is pressed!');
-    }
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('keydown', escFunction, false);
-  }, []);
 
   useEffect(() => {
     console.log('リストの取得');
